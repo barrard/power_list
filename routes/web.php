@@ -20,4 +20,6 @@ Auth::routes(['verify' => true]);
 Route::middleware(['verified'])->group(function () {
 
     Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::apiResource('/list_items', 'ListItemController')->except(['show']);
 });
