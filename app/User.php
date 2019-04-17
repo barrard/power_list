@@ -36,4 +36,13 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Creates a relationship for a user having many list items.
+     *
+     */
+    public function list_items()
+    {
+        return $this->hasMany(ListItem::class);
+    }
 }
