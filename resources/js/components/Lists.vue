@@ -1,9 +1,9 @@
 <template>
   <div class="card">
-      <div class="card-header">Home</div>
+      <div class="card-header">Lists</div>
 
       <div class="card-body">
-          This is the homepage!
+          This is the list page!
       </div>
   </div>
 </template>

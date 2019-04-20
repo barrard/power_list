@@ -1,13 +1,27 @@
 import Home from './components/Home'
-import About from './components/About'
+import Lists from './components/Lists'
+import ListItems from './components/ListItems'
+import Account from './components/Account'
 
 
 export default {
   mode:'history',
-  routes:[{
-    path:'/', component:Home
-  },
-  {
-    path:'/about', component:About
-  }]
+  routes:[
+    {
+      path:'/home', 
+      component:Home
+    },
+    {
+      path:'/lists', 
+      component: Lists
+    },
+    {
+        path: '/list_items',
+        component: ListItems
+    },
+    {
+        path: '/account',
+        component: Account
+    }
+  ]
 }

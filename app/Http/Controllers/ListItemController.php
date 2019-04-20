@@ -16,6 +16,7 @@ class ListItemController extends Controller
      */
     public function index(Request $request)
     {
+        dd($request->user());
         return new ListItemResource(
             $request->user()->list_items()->get()
         );
