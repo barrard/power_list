@@ -29,8 +29,8 @@
       </div>
       <div class="card text-center" v-else>
         <div class="card-body">
-          <h5 class="card-title">You haven't added any list items yet</h5>
-          <p class="card-text">To add your first item, click the button below and fill out the form.</p>
+          <h5 class="card-title">You haven't added any list items today</h5>
+          <p class="card-text">To get started, click the button below and fill out the form.</p>
           <a href="#" class="btn btn-primary">Add List Item</a>
         </div>
       </div>
