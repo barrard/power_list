@@ -48,7 +48,7 @@ export default {
       axios.post('/list_items', this.formData).then((response) => {
         this.formData = {}
         $('#add_list_item_modal').modal('hide')
-        this.$parent.$emit('taskCreated', response)
+        this.$parent.$emit('refreshRecords', response)
       }).catch((error) => {
         this.formErrors = error.response.data.errors
       })

@@ -21,7 +21,7 @@
                 <td class="text-right">
                   <button class="btn btn-sm btn-success"><i class="fa fa-check"></i></button>
                   <button class="btn btn-sm btn-secondary"><i class="fa fa-edit"></i></button>
-                  <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                  <button class="btn btn-sm btn-danger" @click.prevent="showDeleteModal(item)"><i class="fa fa-trash"></i></button>
                 </td>
               </tr>
             </tbody>
@@ -31,28 +31,39 @@
         <div class="card-body">
           <h5 class="card-title">You haven't added any list items today</h5>
           <p class="card-text">To get started, click the button below and fill out the form.</p>
-          <a href="#" class="btn btn-primary">Add List Item</a>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#add_list_item_modal">Add List Item</button>
         </div>
       </div>
       <add-list-item-modal />
+      <delete-list-item-modal :task="task" />
   </div>
 </template>
 
 <script>
 import addListItemModal from './modals/add_list_item_modal.vue'
+import deleteListItemModal from './modals/delete_list_item_modal.vue'
 
 export default {
   data () {
     return {
-      listItems: []
+      task: {},
+      listItems: [],
     }
   },
-  components:{addListItemModal},
+  components:{
+    addListItemModal,
+    deleteListItemModal
+  },
   created () {
     this.records()
-    this.$on('taskCreated', () => {
+    this.$on('refreshRecords', () => {
       this.records()
     })
+  },
+  watch: {
+    task: (newValue, oldValue) => {
+      $('#delete_list_item_modal-'+oldValue.id).modal('show')
+    }
   },
   computed: {
     filteredRecords () {
@@ -66,6 +77,10 @@ export default {
       axios.get(`/list_items`).then((response) => {
         this.listItems = response.data.data
       })
+    },
+    showDeleteModal (task) {
+      this.task = task
+      $('#delete_list_item_modal-'+task.id).modal('show')
     }
   }
 };
