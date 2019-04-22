@@ -2,10 +2,10 @@
   <div class="card">
       <div class="card-header">
         Home
-        <button v-if="filteredRecords.length < 5" class="btn btn-sm btn-secondary float-right" data-toggle="modal" data-target="#add_list_item_modal"><i class="fa fa-plus"></i> Add Item</button>
+        <button v-if="filteredRecords.length > 0 && filteredRecords.length < 5" class="btn btn-sm btn-secondary float-right" data-toggle="modal" data-target="#add_list_item_modal"><i class="fa fa-plus"></i> Add Item</button>
       </div>
 
-      <div class="card-body">
+      <div class="card-body" v-if="filteredRecords.length">
           <div class="text-center">
             <h1>Today</h1>
           </div>
@@ -27,7 +27,14 @@
             </tbody>
           </table>
       </div>
-    <add-list-item-modal />
+      <div class="card text-center" v-else>
+        <div class="card-body">
+          <h5 class="card-title">You haven't added any list items today</h5>
+          <p class="card-text">To get started, click the button below and fill out the form.</p>
+          <a href="#" class="btn btn-primary">Add List Item</a>
+        </div>
+      </div>
+      <add-list-item-modal />
   </div>
 </template>
 
