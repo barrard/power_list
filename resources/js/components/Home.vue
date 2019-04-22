@@ -50,6 +50,9 @@ export default {
   components:{addListItemModal},
   created () {
     this.records()
+    this.$on('taskCreated', () => {
+      this.records()
+    })
   },
   computed: {
     filteredRecords () {
