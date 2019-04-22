@@ -2,7 +2,7 @@
   <div class="card">
       <div class="card-header">
         Home
-        <button v-if="filteredRecords.length < 5" class="btn btn-sm btn-secondary float-right"><i class="fa fa-plus"></i> Add Item</button>
+        <button v-if="filteredRecords.length < 5" class="btn btn-sm btn-secondary float-right" data-toggle="modal" data-target="#add_list_item_modal"><i class="fa fa-plus"></i> Add Item</button>
       </div>
 
       <div class="card-body">
@@ -27,10 +27,12 @@
             </tbody>
           </table>
       </div>
+    <add-list-item-modal />
   </div>
 </template>
 
 <script>
+import addListItemModal from './modals/add_list_item_modal.vue'
 
 export default {
   data () {
@@ -38,6 +40,7 @@ export default {
       listItems: []
     }
   },
+  components:{addListItemModal},
   created () {
     this.records()
   },
