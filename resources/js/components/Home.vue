@@ -20,7 +20,7 @@
                 <td>{{ item.created_at | moment('LL') }}</td>
                 <td class="text-right">
                   <button v-if="!item.completed" class="btn btn-sm btn-success" @click.prevent="markComplete(item)"><i class="fa fa-check"></i></button>
-                  <button class="btn btn-sm btn-secondary"><i class="fa fa-edit"></i></button>
+                  <button class="btn btn-sm btn-secondary" @click.prevent="showEditModal(item)"><i class="fa fa-edit"></i></button>
                   <button class="btn btn-sm btn-danger" @click.prevent="showDeleteModal(item)"><i class="fa fa-trash"></i></button>
                 </td>
               </tr>
@@ -35,12 +35,14 @@
         </div>
       </div>
       <add-list-item-modal />
+      <edit-list-item-modal :formData="task" />
       <delete-list-item-modal :task="task" />
   </div>
 </template>
 
 <script>
 import addListItemModal from './modals/add_list_item_modal.vue'
+import editListItemModal from './modals/edit_list_item_modal.vue'
 import deleteListItemModal from './modals/delete_list_item_modal.vue'
 
 export default {
@@ -52,6 +54,7 @@ export default {
   },
   components:{
     addListItemModal,
+    editListItemModal,
     deleteListItemModal
   },
   created () {
@@ -59,11 +62,6 @@ export default {
     this.$on('refreshRecords', () => {
       this.records()
     })
-  },
-  watch: {
-    task: (newValue, oldValue) => {
-      $('#delete_list_item_modal-'+oldValue.id).modal('show')
-    }
   },
   computed: {
     filteredRecords () {
@@ -80,7 +78,17 @@ export default {
     },
     showDeleteModal (task) {
       this.task = task
-      $('#delete_list_item_modal-'+task.id).modal('show')
+
+      this.$nextTick(() => {
+        $('#delete_list_item_modal-'+task.id).modal('show')
+      })
+    },
+    showEditModal (task) {
+      this.task = task
+
+      this.$nextTick(() => {
+        $('#edit_list_item_modal-'+task.id).modal('show')
+      })
     },
     markComplete (task) {
       let data = Object.assign(task, {'completed': true})
