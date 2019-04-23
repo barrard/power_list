@@ -19,7 +19,7 @@
                 </td>
                 <td>{{ item.created_at | moment('LL') }}</td>
                 <td class="text-right">
-                  <button class="btn btn-sm btn-success"><i class="fa fa-check"></i></button>
+                  <button v-if="!item.completed" class="btn btn-sm btn-success" @click.prevent="markComplete(item)"><i class="fa fa-check"></i></button>
                   <button class="btn btn-sm btn-secondary"><i class="fa fa-edit"></i></button>
                   <button class="btn btn-sm btn-danger" @click.prevent="showDeleteModal(item)"><i class="fa fa-trash"></i></button>
                 </td>
@@ -81,6 +81,11 @@ export default {
     showDeleteModal (task) {
       this.task = task
       $('#delete_list_item_modal-'+task.id).modal('show')
+    },
+    markComplete (task) {
+      let data = Object.assign(task, {'completed': true})
+
+      axios.put(`/list_items/${task.id}`, data)
     }
   }
 };
