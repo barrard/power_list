@@ -16,7 +16,6 @@ class CreateListItemsTable extends Migration
         Schema::create('list_items', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->string('name');
             $table->string('description');
             $table->boolean('completed')->default(false);
             $table->timestamps();
