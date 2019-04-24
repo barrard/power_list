@@ -24,8 +24,10 @@ class ListItemRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => 'required|max:255',
+            'description' => 'required|max:255|unique:list_items,description',
             'completed'   => 'boolean'
         ];
     }
 }
+
+

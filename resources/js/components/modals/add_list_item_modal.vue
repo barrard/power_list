@@ -22,11 +22,11 @@
                   v-model="formData.description"
                   required
                 >
-                <div class="invalid-feedback">Please enter the name for your task.</div>
+                <div class="invalid-feedback" v-if="formErrors.description" >{{formErrors.description[0]}}</div>
               </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="clear_form">Close</button>
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
         </form>
@@ -44,6 +44,10 @@ export default {
     };
   },
   methods: {
+    clear_form(){
+      this.formData = {}
+      this.formErrors=[]
+    },
     submit () {
       axios.post('/list_items', this.formData).then((response) => {
         this.formData = {}
@@ -53,27 +57,7 @@ export default {
         this.formErrors = error.response.data.errors
       })
     },
-    // async submit_new_task(e) {
-    //   // e.preventDefault()
-    //   console.log("do it");
-    //   var form = document.getElementById("new_task_form");
-    //   try {
-    //     if (form.checkValidity() === false) {
-    //       e.preventDefault();
-    //       e.stopPropagation();
-    //     }
-    //     form.classList.add("was-validated");
-    //     e.preventDefault();
-    //     console.log(`posting ${this.name}`);
-    //     let resp = await axios.post("/list_items", {
-    //       description: 'test', 
-    //     });
-    //     console.log(resp);
-    //   } catch (err) {
-    //     console.log("err");
-    //     console.log(err);
-    //   }
-    // }
+
   },
 };
 </script>

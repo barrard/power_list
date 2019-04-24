@@ -16,11 +16,14 @@ class CreateListItemsTable extends Migration
         Schema::create('list_items', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->string('description');
+            $table->string('description');            
             $table->boolean('completed')->default(false);
+            $table->increments('total_attempts');
+            $table->increments('total_completions');
             $table->timestamps();
-
+            
             $table->foreign('user_id')->references('id')->on('users');
+
         });
 
 
