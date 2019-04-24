@@ -111,7 +111,7 @@
               <div class="ui-presentation-right ui-device macbook float-left rounded">
                 <img class="device-img" src="{{ asset('theme/assets/img/devices/macbook-gold.png') }}" alt>
                 <div class="device-content">
-                  <img src="{{ asset('theme/assets/img/uikit/app.png') }}" alt>
+                  <img src="{{ asset('theme/assets/img/uikit/test.png') }}" alt>
                 </div>
               </div>
             </div>
