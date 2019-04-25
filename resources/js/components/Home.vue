@@ -34,7 +34,7 @@
           <button class="btn btn-primary" data-toggle="modal" data-target="#add_list_item_modal">Add List Item</button>
         </div>
       </div>
-      <add-list-item-modal />
+      <add-list-item-modal :todays_tasks="filteredRecords" :listItems="listItems"/>
       <edit-list-item-modal :formData="task" />
       <delete-list-item-modal :task="task" />
   </div>
