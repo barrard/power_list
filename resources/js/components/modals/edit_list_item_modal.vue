@@ -22,7 +22,7 @@
                   v-model="formData.description"
                   required
                 >
-                <div class="invalid-feedback">Please enter the name for your task.</div>
+                <div class="invalid-feedback" v-if="formErrors.description" >{{formErrors.description[0]}}</div>
               </div>
               <div class="form-group">
                   <div class="custom-control custom-checkbox mr-sm-2">
@@ -60,7 +60,7 @@ export default {
         $('#edit_list_item_modal-'+this.formData.id).modal('hide')
         this.$parent.$emit('refreshRecords', response)
       }).catch((error) => {
-        console.log(error)
+        this.formErrors = error.response.data.errors
       })
     },
   },
