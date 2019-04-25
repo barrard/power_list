@@ -10,7 +10,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <select name="available_tasks" v-model="selected_task">
+            <select class="custom-select" name="available_tasks" v-model="selected_task">
               <option class="hidden" value="select">Available Tasks</option>
               <option
                 v-for="(item, index) in filteredAvailableRecords"

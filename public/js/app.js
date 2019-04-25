@@ -37847,6 +37847,7 @@ var render = function() {
                         expression: "selected_task"
                       }
                     ],
+                    staticClass: "custom-select",
                     attrs: { name: "available_tasks" },
                     on: {
                       change: function($event) {
