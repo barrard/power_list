@@ -10,23 +10,14 @@
             </button>
           </div>
           <div class="modal-body">
-            <select class="custom-select" name="available_tasks" v-model="selected_task">
-              <option class="hidden" value="select">Available Tasks</option>
-              <option
-                v-for="(item, index) in filteredAvailableRecords"
-                :key="index"
-                :value="item.description"
-              >{{item.description}}</option>
-            </select>
             <div class="form-group">
-              <label for="description">Task Name</label>
               <input
                 type="text"
                 class="form-control"
                 :class="{ 'is-invalid' : formErrors.description }"
                 @keyup="formErrors = []"
                 aria-describedby="descriptionHelp"
-                placeholder="Task Name"
+                placeholder="Enter A Task"
                 v-model="formData.description"
                 required
               >
@@ -34,6 +25,17 @@
                 class="invalid-feedback"
                 v-if="formErrors.description"
               >{{formErrors.description[0]}}</div>
+            </div>
+            <div class="form-group text-center" v-if="listItems.length">OR</div>
+            <div class="form-group" v-if="listItems.length">
+              <select class="form-control" name="available_tasks" :placeholder="'Select A Task'" v-model="formData.description">
+                <option :value="null" disabled>Select A Task</option>
+                <option
+                  v-for="(item, index) in uniqueListItems"
+                  :key="index"
+                  :value="item"
+                >{{item}}</option>
+              </select>
             </div>
           </div>
           <div class="modal-footer">
@@ -55,11 +57,12 @@
 import Vue from "vue";
 
 export default {
-  props: ["listItems", "todays_tasks"],
+  props: ["listItems"],
   data() {
     return {
-      selected_task: "select",
-      formData: {},
+      formData: {
+        description: null
+      },
       formErrors: []
     };
   },
@@ -69,16 +72,15 @@ export default {
     }
   },
   computed: {
-    filteredAvailableRecords() {
-      console.log(this.todays_tasks);
-      return this.listItems.filter(item => {
-        return this.todays_tasks.indexOf(item) == -1;
-      });
+    uniqueListItems () {
+      return new Set(this.listItems.map(item => item.description));
     }
   },
   methods: {
     clear_form() {
-      this.formData = {};
+      this.formData = {
+        description: null
+      };
       this.formErrors = [];
     },
     submit() {
